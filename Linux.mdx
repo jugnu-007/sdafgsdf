@@ -1,0 +1,62 @@
+
+
+## Boot Loader
+
+
+https://www.youtube.com/watch?v=iA2ko_H8_7Q
+
+
+
+
+## chroot
+
+chroot is an operation on Unix and Unix-like operating systems that changes the apparent root directory for the current running process and its children. A program that is run in such a modified environment cannot access files and commands outside that environmental directory tree. This modified environment is called a chroot jail.
+
+Changing root is commonly done for performing system maintenance on systems where booting and/or logging in is no longer possible. `chroot` command can be very useful:
+- To create a test environment.
+- To recover the system or password.
+- To reinstall the bootloader.
+- Rebuilding the initramfs image.
+- Building packages in a clean chroot.
+
+
+
+```sh
+$chr=/home/jay/mychroot
+mkdir -p $chr/{bin,lib,lib64}
+cp -v /bin/{bash,ls} $chr/bin
+
+list="$(ldd /bin/bash | egrep -o '/lib.*\.[0-9]')"
+for i in $list;
+do
+	cp -v --parents "$i" "${chr}";
+done
+
+list="$(ldd /bin/ls | egrep -o '/lib.*\.[0-9]')"
+for i in $list;
+do
+	cp -v --parents "$i" "${chr}";
+done
+
+chroot $chr /bin/bash
+```
+
+https://www.youtube.com/watch?v=JOsWB50LmwQ
+
+https://wiki.archlinux.org/title/chroot
+
+
+
+
+## Privilege Escalation
+
+Privilege escalation is a cyberattack technique where an attacker gains unauthorized access to higher privileges by leveraging security flaws, weaknesses, and vulnerabilities in the system.
+
+
+### Types of Privilege Escalation
+
+- Vertical Privilege Escalation: This occurs when a lower-privileged user accesses functions or content reserved for higher-privileged users. For example, a regular user gaining administrative privileges.
+- Horizontal Privilege Escalation: This occurs when a user accesses the resources or functionality of another user who has similar levels of privileges. For example, a user accessing another user's account details or data.
+
+
+[What is Privilege Escalation Attacks? Understanding Types & Preventation (eccouncil.org)](https://www.eccouncil.org/cybersecurity-exchange/penetration-testing/privilege-escalations-attacks/)

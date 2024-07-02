@@ -1,0 +1,128 @@
+
+
+
+
+
+
+# [Object Oriented Programming](./OOPs.md)
+
+
+## Class
+
+- A class is an implementation of a type. It is the only way to implement User-defined Data Type (UDT)
+- A class contains data members / attributes
+- A class has operations / member functions / methods
+- A class defines a namespace
+- It offers data abstraction / encapsulation of Object Oriented Programming
+- Classes are similar to structures that aggregate data logically
+- Classes provide access specifiers for members to enforce data hiding that separates implementation from interface
+	- private — accessible inside the definition of the class
+	- public — accessible everywhere
+- A class is a blue print for its instances (objects)
+
+
+
+
+## Object
+
+- An object of a class is an instance created according to its blue print.
+- Objects can be automatically, statically, or dynamically created
+- A object comprises data members that specify its state
+- A object supports member functions that specify its behavior
+- Data members of an object can be accessed by ”.” (dot) operator on the object
+- Member functions are invoked by ”.” (dot) operator on the object
+- An implicit this pointer holds the address of an object. This serves the identity of the object in C++
+- this pointer is implicitly passed to methods
+
+
+
+
+The state of an object is determined by the combined value of all its data members
+
+
+
+## this pointer
+
+- An implicit this pointer holds the address of an object
+- this pointer serves as the identity of the object in C++
+- Type of this pointer for a class X object: `X * const this;`
+- this pointer is accessible only in member functions
+
+
+## Access Specifiers
+
+
+- Classes provide access specifiers for members (data as well as function) to enforce data hiding that separates implementation from interface
+- **private** -> implementation -> generally used for attributes
+	- accessible inside the definition of the class
+	- member functions of the same class
+- **public** -> interface -> generally used for member functions
+	- accessible everywhere
+	- member functions of the same class
+	- member function of a different class
+	- global functions
+- The keywords public and private are the Access Specifiers
+- Unless specified, the access of the members of a class is considered private
+
+
+
+**Information Hiding:**
+
+- The public attributes should not decide the state of an object
+- The private member functions cannot be part of the behavior of an object
+
+
+## Constructor
+
+- It is a static member function without this pointer – but gets the pointer to the memory where the object is constructed
+- Name is same as the name of the class
+- Has no return type - not even void
+- Initializer list to initialize the data members
+- Implicit call by instantiation / operator new
+- May be public or private
+- May have any number of parameters
+- Can be overloaded
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Multi Threaded Programming 
+
+
+
+
+
+
+
+# Web Development
+
+
+
+
+
+
+
+
+
+
+
+
+

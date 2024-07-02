@@ -1,0 +1,424 @@
+
+# Introduction
+
+
+**Drawbacks of using file systems to store data**
+
+
+- **Data redundancy and inconsistency**
+	- Multiple file formats, duplication of information in different files
+- **Difficulty in accessing data**
+	- Need to write a new program to carry out each new task
+- **Data isolation**
+	- Multiple files and formats
+- **Integrity problems**
+	- Integrity constraints (e.g., account balance > 0) become "buried" in program code rather than being stated explicitly
+	- Hard to add new constraints or change existing ones
+- **Atomicity of updates**
+	- Failures may leave database in an inconsistent state with partial updates carried out
+	- Example: Transfer of funds from one account to another should either complete or not happen at all
+- **Concurrent access by multiple users**
+	- Concurrent access needed for performance Uncontrolled concurrent accesses can lead to inconsistencies
+	- Example: Two people reading a balance (say 100) and updating it by withdrawing money (say 50 each) at the same time .
+- **Security problems**
+	- Hard to provide user access to some, but not all, data
+
+
+
+
+
+## Data Model
+
+- A collection of tools for describing
+	- Data
+	- Data relationships
+	- Data semantics
+	- Data constraints
+
+
+- Relational model
+- Entity-Relationship data model (mainly for database design)
+- Object-based data models (Object-oriented and Object-relational)
+- Semi-structured data model (XML)
+- Other older models:
+	- Network model
+	- Hierarchical model
+
+
+
+
+### Data Definition Language (DDL)
+
+- Specification notation for defining the database schema
+- DDL compiler generates a set of table templates stored in a data dictionary
+- Data dictionary contains metadata (i.e., data about data)
+	- Database schema
+	- Integrity constraints
+	- Primary key (ID uniquely identifies instructors)
+	- Authorization
+
+
+
+### Data Manipulation Language (DML)
+
+- Language for accessing and manipulating the data organized by the appropriate data model
+- DML also known as query language
+- Two classes of languages
+	- **Pure** - used for proving properties about computational power and for optimization
+		- Relational Algebra (we focus in this course)
+		- Tuple relational calculus
+		- Domain relational calculus
+	- Commercial - used in commercial systems
+		- SQL is the most widely used commercial language
+
+### Structure Query Language (SQL)
+
+- The most widely used commercial language
+- SQL is NOT a Turing machine equivalent language
+- To be able to compute complex functions SQL is usually embedded in some higher-level language
+- Application programs generally access databases through one of
+	- Language extensions to allow embedded SQL
+	- Application program interface (e.g., ODBC/JDBC) which allow SQL queries to be sent to a database
+
+
+
+## Database Design
+
+The process of designing the general structure of the database
+
+**Logical Design**
+
+Deciding on the database schema. Database design requires that we find a "good" collection of relation schemas.
+
+**Physical Design**
+
+Deciding on the physical layout of the database
+
+
+
+### Object-Relational Data Models
+
+Relational model: flat, “atomic” values
+
+Object Relational Data Models
+	- Extend the relational data model by including object orientation and constructs to deal with added data types
+	- Allow attributes of tuples to have complex types, including non-atomic values such as nested relations
+	- Preserve relational foundations, in particular the declarative access to data, while extending modeling power
+	- Provide upward compatibility with existing relational languages
+
+
+### Storage Management
+
+Storage manager is a program module that provides the interface between the low-level data stored in the database and the application programs and queries submitted to the system.
+
+
+#### Query Processing
+
+
+#### Transaction Management
+
+
+## Database Architecture
+
+The architecture of a database systems is greatly influenced by the underlying computer system on which the database is running: 
+- Centralized
+- Client-server
+- Parallel (multi-processor)
+- Distributed
+
+
+
+## Database Concept
+
+### Attribute
+
+The set of allowed values for each attribute is called the domain of the attribute
+
+
+
+
+### Relation Schema and Instance
+
+- A$_{1}$, A$_{2}$, …, A$_{n}$ are attributes
+
+- R = ( A$_{1}$, A$_{2}$, …, A$_{n}$ ) is a relation schema
+
+- Example:
+	instructor = (ID, name, dept_name, salary)
+
+- Formally, given sets D$_{1}$, D$_{2}$, …, D$_{n}$  a relation r is a subset of 
+D$_{1}$ x D$_{2}$ x … x D$_{n}$
+
+- Thus, a relation is a set of n-tuples ( a$_{1}$, a$_{2}$, …, a$_{n}$ ) where each a$_{i}$ implies to D$_{i}$
+
+- The current values (relation instance) of a relation are specified by a table
+
+- An element t of r is a tuple, represented by a row in a table
+
+### Keys
+
+- Let K subset of R
+- K is a superkey of R if values for K are sufficient to identify a unique tuple of each possible relation r(R)
+	- Example: {ID} and {ID,name} are both superkeys of instructor 
+- Superkey K is a candidate key if K is minimal 
+	- Example: {ID} is a candidate key for Instructor
+- One of the candidate keys is selected to be the primary key 
+- A surrogate key (or synthetic key) in a database is a unique identifier for either an entity in the modeled world or an object in the database 
+	- The surrogate key is not derived from application data, unlike a natural (or business) key which is derived from application data
+
+
+
+- Super Key: Roll #, {Roll #, DoB} 
+- Candidate Keys: Roll #, {First Name, Last Name}, Passport #, Aadhaar # 
+	- Passport # cannot be a key. Why? 
+	- Null values are allowed for Passport # (a student may not have a passport) 
+- Primary Key: Roll #
+- Secondary / Alternate Key: {First Name, Last Name}, Aadhaar # 
+- Simple key: Consists of a single attribute 
+- Composite Key: {First Name, Last Name}
+
+- Foreign key constraint: Value in one relation must appear in another
+	- Referencing relation 
+		- Enrolment: Foreign Keys – Roll #, Course # 
+	- Referenced relation 
+		- Students, Courses 
+- A compound key consists of more than one attribute to uniquely identify an entity occurrence 
+	- Each attribute, which makes up the key, is a simple key in its own right 
+	- {Roll #, Course #}
+
+
+
+
+
+
+### Relational Query Languages
+
+Procedural vs. Non-procedural or Declarative Paradigms
+
+- Procedural programming requires that the programmer tell the computer what to do 
+	- That is, how to get the output for the range of required inputs 
+	- The programmer must know an appropriate algorithm
+- Declarative programming requires a more descriptive style
+	- The programmer must know what relationships hold between various entities
+
+
+# SQL
+
+## Data Definition Language
+
+
+The SQL data-definition language (DDL) allows the specification of information about relations, including:
+
+- The schema for each relation 
+- The domain of values associated with each attribute 
+- Integrity constraints  And as we will see later, also other information such as 
+- The set of indices to be maintained for each relations 
+- Security and authorization information for each relation 
+- The physical storage structure of each relation on disk
+
+
+
+- *char*(n). Fixed length character string, with user-specified length n 
+- *varchar*(n). Variable length character strings, with user-specified maximum length n 
+- *int*. Integer (a finite subset of the integers that is machine-dependent)
+- *smallint*. Small integer (a machine-dependent subset of the integer domain type) 
+- *numeric*(p,d). Fixed point number, with user-specified precision of p digits, with d digits to the right of decimal point. (ex., numeric(3,1), allows 44.5 to be stores exactly, but not 444.5 or 0.32) 
+- *real*, double precision. Floating point and double-precision floating point numbers, with machine-dependent precision 
+- *float*(n). Floating point number, with user-specified precision of at least n digits
+
+
+
+
+
+### Create Table Construct
+
+- An SQL relation is defined using the create table command:
+```sql
+create table r (A1 D1, A2 D2, ..., An Dn,
+				(integrity-constraint1),
+				...,
+				(integrity-constraintk))
+```
+- r is the name of the relation 
+- each Ai is an attribute name in the schema of relation r 
+- Di is the data type of values in the domain of attribute Ai
+
+
+```sql
+create table instructor (
+	ID char(5),
+	name varchar(20) not null,
+	dept_name varchar(20),
+	salary numeric(8,2),
+	primary key (ID),
+	foreign key (dept_name) references department);
+```
+primary key declaration on an attribute automatically ensures not null
+
+
+
+
+
+
+
+- Insert 
+	- insert into instructor values (‘10211’, ‘Smith’, ‘Biology’, 66000); 
+- Delete 
+	- Remove all tuples from the student relation 
+	- delete from student 
+- Drop Table
+	- drop table r 
+- Alter 
+	- alter table r add A D 
+		- where A is the name of the attribute to be added to relation r and D is the domain of A 
+		- All exiting tuples in the relation are assigned null as the value for the new attribute 
+	- alter table r drop A 
+		- where A is the name of an attribute of relation r 
+		- Dropping of attributes not supported by many databases
+
+
+
+### Basic Query Structure
+
+
+
+A typical SQL query has the form: select A1, A 2, ..., A n from r1, r2, ..., rm where P  Ai represents an attribute  Ri represents a relation  P is a predicate  The result of an SQL query is a relation
+
+#### The select Clause 
+
+The select clause lists the attributes desired in the result of a query  corresponds to the projection operation of the relational algebra  Example: find the names of all instructors: select name from instructor  NOTE: SQL names are case insensitive (i.e., you may use upper- or lower-case letters.)  E.g., Name ≡ NAME ≡ name  Some people use upper case wherever we use bold font
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$e^{-\frac{t}{RC}}$
+
+only$_{ten}$,
+
+
+
+
+
+
+
+# Transaction
+
+
+### ACID Property
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# PL/SQL
+
+Procedural SQL
+	- Function
+	- Procedure
+	- Trigger
+	- Cursor
+
+Block Code:
+	- Declaration 
+	- Executable Code
+	- Exception Handling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
